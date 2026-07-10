@@ -401,7 +401,7 @@
     <div class="sum-row"><span>المجموع الفرعي</span><span>898 ج.م</span></div>
     <div class="sum-row"><span>الشحن</span><span>60 ج.م</span></div>
     <div class="sum-row total"><span>الإجمالي</span><span class="num-val">958 ج.م</span></div>
-    <button type="button" id="confirmBtn" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:16px;">📱 تأكيد الطلب عبر واتساب ←</button>
+    <button type="button" id="confirmBtn" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:16px;">تأكيد الطلب ←</button>
     <div style="font-size:11px; color:var(--ivory-dim); text-align:center; margin-top:10px;">🔒 بياناتك محمية ومشفّرة بالكامل</div>
   </div>
 </div>
@@ -460,9 +460,9 @@
     document.getElementById('siteHeader').classList.toggle('scrolled', window.scrollY > 8);
   });
 
-  const STORE_WHATSAPP = "201066850953"; // رقم واتساب المتجر
+  const WEB3FORMS_KEY = "0a1eecf4-8a02-4ff3-a62a-ca174d11e0dd";
 
-  document.getElementById('confirmBtn').addEventListener('click', () => {
+  document.getElementById('confirmBtn').addEventListener('click', async () => {
     const name = document.getElementById('f_name').value.trim();
     const phone = document.getElementById('f_phone').value.trim();
     const address = document.getElementById('f_address').value.trim();
@@ -475,22 +475,36 @@
       return;
     }
 
-    const message =
-`🛍️ طلب جديد من متجر تمساح
+    const btn = document.getElementById('confirmBtn');
+    btn.textContent = 'جاري إرسال الطلب...';
+    btn.disabled = true;
 
-👤 الاسم: ${name}
-📱 الموبايل: ${phone}
-📍 العنوان: ${address}، ${city}، ${gov}
-💳 طريقة الدفع: ${payment}
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: "طلب جديد من متجر تمساح",
+          name: name,
+          phone: phone,
+          message:
+`الاسم: ${name}
+الموبايل: ${phone}
+العنوان: ${address}، ${city}، ${gov}
+طريقة الدفع: ${payment}
 
-🧾 المنتجات:
+المنتجات:
 - تيشيرت تمساح — أسود × 1 (399 ج.م)
 - تيشيرت تمساح — طبعة ذهبية × 1 (499 ج.م)
 شحن: 60 ج.م
-الإجمالي: 958 ج.م`;
+الإجمالي: 958 ج.م`
+        })
+      });
+    } catch(e) {
+      console.error('تعذر إرسال الطلب:', e);
+    }
 
-    const url = `https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
     window.location.href = 'thank-you.html';
   });
 </script>
