@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>تمساح | Timsah — تيشيرتات بريميوم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0F0D;
+    --ink-2:#121815;
+    --pitch:#1B4D3E;
+    --pitch-light:#2C6B54;
+    --gold:#C9A66B;
+    --gold-bright:#E4C88F;
+    --ivory:#F3F1EA;
+    --ivory-dim:#C9C6BC;
+    --red:#A32B2B;
+    --line: rgba(243,241,234,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--ivory);
+    font-family:'Cairo', sans-serif;
+    overflow-x:hidden;
+    padding-bottom:64px; /* bottom nav space on mobile */
+  }
+  h1,h2,h3,.display{font-family:'Tajawal', sans-serif; font-weight:900;}
+  .num{font-family:'Oswald', sans-serif;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit; cursor:pointer; border:none;}
+  img,svg{display:block; max-width:100%;}
+
+  /* ===== Announcement bar ===== */
+  .announce{
+    background:var(--gold);
+    color:var(--ink);
+    font-weight:700;
+    font-size:13px;
+    text-align:center;
+    padding:9px 36px 9px 12px;
+    position:relative;
+    letter-spacing:.2px;
+  }
+  .announce .close{
+    position:absolute; left:12px; top:50%; transform:translateY(-50%);
+    background:none; color:var(--ink); font-size:16px; opacity:.7; line-height:1;
+  }
+
+  /* ===== Header ===== */
+  header{
+    position:sticky; top:0; z-index:40;
+    background:rgba(11,15,13,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:box-shadow .3s ease;
+  }
+  header.scrolled{ box-shadow:0 8px 24px rgba(0,0,0,0.35); }
+  .header-inner{
+    max-width:1180px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 18px;
+  }
+  .logo{
+    display:flex; align-items:center; gap:8px;
+    font-size:20px; font-weight:900; letter-spacing:.5px;
+  }
+  .logo .dot{
+    width:22px; height:22px; border-radius:6px 6px 6px 2px; background:var(--gold);
+    box-shadow:0 0 12px rgba(228,200,143,0.4); display:flex; align-items:center; justify-content:center;
+    font-size:13px; transform:rotate(-8deg);
+  }
+  .header-icons{ display:flex; align-items:center; gap:16px; }
+  .icon-btn{ position:relative; background:none; color:var(--ivory); font-size:19px; padding:4px; }
+  .badge{
+    position:absolute; top:-4px; left:-6px; background:var(--red); color:var(--ivory);
+    font-size:10px; font-weight:700; min-width:16px; height:16px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-family:'Oswald';
+  }
+  .desktop-nav{ display:none; gap:28px; font-weight:600; font-size:15px; }
+  .desktop-nav > li{ position:relative; padding:6px 0; cursor:pointer; transition:color .2s; }
+  .desktop-nav > li:hover{ color:var(--gold-bright); }
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative; padding:56px 18px 40px; text-align:center; overflow:hidden;
+    background:
+      radial-gradient(120% 60% at 50% -10%, rgba(201,166,107,0.16), transparent 60%),
+      linear-gradient(180deg, var(--ink) 0%, #0d1512 100%);
+  }
+  .hero .ghost-num{
+    position:absolute; top:-6%; left:50%; transform:translateX(-50%);
+    font-family:'Oswald'; font-weight:700; font-size:min(70vw,480px);
+    color:transparent; -webkit-text-stroke:1.5px rgba(243,241,234,0.06);
+    line-height:1; user-select:none; z-index:0;
+    animation: floodsweep 8s ease-in-out infinite;
+  }
+  @keyframes floodsweep{
+    0%,100%{ -webkit-text-stroke-color: rgba(243,241,234,0.05); }
+    50%{ -webkit-text-stroke-color: rgba(201,166,107,0.14); }
+  }
+  .hero-content{ position:relative; z-index:1; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    color:var(--gold-bright); font-weight:700; font-size:12.5px; letter-spacing:1.5px;
+    margin-bottom:16px; text-transform:uppercase; font-family:'Cairo';
+  }
+  .eyebrow::before{ content:''; width:22px; height:1px; background:var(--gold-bright); }
+  .hero h1{ font-size:clamp(30px,7vw,52px); line-height:1.15; margin-bottom:14px; }
+  .hero h1 span{ color:var(--gold); }
+  .hero p{ color:var(--ivory-dim); font-size:15px; max-width:420px; margin:0 auto 26px; line-height:1.8; }
+  .cta-row{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .btn{
+    padding:15px 28px; border-radius:8px; font-weight:700; font-size:15px;
+    display:inline-flex; align-items:center; gap:8px; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn:active{ transform:scale(0.97); }
+  .btn-primary{ background:var(--gold); color:var(--ink); box-shadow:0 10px 30px rgba(201,166,107,0.25); }
+  .btn-ghost{ background:transparent; border:1px solid var(--line); color:var(--ivory); }
+
+  /* ===== Trust strip ===== */
+  .trust{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:1px;
+    background:var(--line); border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .trust-item{
+    background:var(--ink); padding:16px 14px; display:flex; align-items:center; gap:10px;
+  }
+  .trust-item .ic{ font-size:20px; }
+  .trust-item .tx b{ display:block; font-size:12.5px; font-weight:700; }
+  .trust-item .tx span{ font-size:11px; color:var(--ivory-dim); }
+
+  /* ===== Section shell ===== */
+  section.block{ padding:44px 18px; max-width:1180px; margin:0 auto; }
+  .block-head{ display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:22px; }
+  .block-head h2{ font-size:22px; }
+  .block-head .see-all{ font-size:13px; color:var(--gold-bright); font-weight:700; white-space:nowrap; }
+  .eyebrow-sm{ color:var(--gold); font-size:11.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:6px; }
+
+  /* ===== Product grid ===== */
+  .p-scroll{
+    display:flex; gap:14px; overflow-x:auto; padding-bottom:6px; scroll-snap-type:x mandatory;
+    -ms-overflow-style:none; scrollbar-width:none;
+  }
+  .p-scroll::-webkit-scrollbar{ display:none; }
+  .p-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  .card{
+    background:var(--ink-2); border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    min-width:168px; scroll-snap-align:start; position:relative; transition:transform .25s ease, border-color .25s ease;
+  }
+  .card:hover{ border-color:rgba(201,166,107,0.4); transform:translateY(-3px); }
+  .jersey{
+    aspect-ratio:1/1.05; position:relative; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(160deg,var(--pitch) 0%, var(--pitch-light) 55%, var(--ink) 100%);
+  }
+  .jersey::before{
+    content:''; position:absolute; inset:0;
+    background:repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 26px);
+  }
+  .jersey .jnum{ font-family:'Oswald'; font-weight:700; font-size:52px; color:rgba(243,241,234,0.9); z-index:1; text-shadow:0 4px 14px rgba(0,0,0,0.4); }
+  .tag{
+    position:absolute; top:10px; right:10px; background:var(--red); color:var(--ivory);
+    font-size:10.5px; font-weight:700; padding:4px 9px; border-radius:5px; font-family:'Cairo';
+  }
+  .wish{
+    position:absolute; top:10px; left:10px; width:28px; height:28px; border-radius:50%;
+    background:rgba(11,15,13,0.55); backdrop-filter:blur(4px); color:var(--ivory);
+    display:flex; align-items:center; justify-content:center; font-size:14px;
+  }
+  .card .info{ padding:12px; }
+  .card .info .club{ font-size:11px; color:var(--ivory-dim); margin-bottom:3px; }
+  .card .info .name{ font-size:14px; font-weight:700; margin-bottom:8px; line-height:1.4; min-height:38px; }
+  .price-row{ display:flex; align-items:baseline; gap:7px; }
+  .price{ font-family:'Oswald'; font-weight:600; font-size:16px; color:var(--gold-bright); }
+  .price-old{ font-family:'Oswald'; font-size:12.5px; color:var(--ivory-dim); text-decoration:line-through; }
+  .qbuy{
+    margin-top:9px; width:100%; padding:9px; border-radius:7px; background:var(--ivory); color:var(--ink);
+    font-size:12.5px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:6px;
+  }
+
+  /* ===== Complete the look ===== */
+  .look-strip{ display:flex; gap:12px; overflow-x:auto; scrollbar-width:none; }
+  .look-strip::-webkit-scrollbar{display:none;}
+  .look-item{ min-width:110px; text-align:center; }
+  .look-circle{
+    width:88px; height:88px; border-radius:50%; margin:0 auto 8px;
+    background:linear-gradient(145deg,var(--ink-2),#1c2420); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-size:26px;
+  }
+  .look-item span{ font-size:12px; color:var(--ivory-dim); }
+
+  /* ===== Trust banner / bank icons ===== */
+  .pay-strip{
+    display:flex; gap:10px; flex-wrap:wrap; justify-content:center; padding:20px 18px;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .pay-chip{
+    border:1px solid var(--line); border-radius:7px; padding:8px 14px; font-size:12px; font-weight:700;
+    color:var(--ivory-dim);
+  }
+
+  /* ===== Newsletter ===== */
+  .news{
+    background:linear-gradient(135deg,var(--pitch) 0%, #123328 100%);
+    border-radius:18px; margin:44px 18px; padding:34px 22px; text-align:center;
+    border:1px solid rgba(201,166,107,0.25);
+  }
+  .news h3{ font-size:21px; margin-bottom:8px; }
+  .news p{ font-size:13.5px; color:var(--ivory-dim); margin-bottom:18px; }
+  .news form{ display:flex; gap:8px; max-width:360px; margin:0 auto; }
+  .news input{
+    flex:1; padding:13px 14px; border-radius:8px; border:1px solid var(--line);
+    background:rgba(0,0,0,0.25); color:var(--ivory); font-family:inherit; font-size:14px;
+  }
+  .news input::placeholder{ color:var(--ivory-dim); }
+  .news button{ padding:0 18px; border-radius:8px; background:var(--gold); color:var(--ink); font-weight:800; font-size:13.5px; }
+
+  /* ===== Footer ===== */
+  footer{ background:var(--ink-2); border-top:1px solid var(--line); padding:40px 18px 26px; }
+  .foot-grid{ display:grid; gap:26px; max-width:1180px; margin:0 auto; }
+  .foot-col h5{ font-size:13px; margin-bottom:14px; color:var(--gold-bright); font-family:'Cairo'; font-weight:700; }
+  .foot-col li{ font-size:13px; color:var(--ivory-dim); padding:6px 0; }
+  .switchers{ display:flex; gap:10px; margin-top:6px; }
+  .switch-chip{
+    border:1px solid var(--line); border-radius:7px; padding:8px 12px; font-size:12.5px; font-weight:700;
+    display:flex; align-items:center; gap:6px; color:var(--ivory);
+  }
+  .foot-bottom{
+    max-width:1180px; margin:26px auto 0; padding-top:20px; border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+    font-size:12px; color:var(--ivory-dim);
+  }
+
+  /* ===== Floating elements ===== */
+  .fab-col{ position:fixed; left:16px; bottom:78px; z-index:45; display:flex; flex-direction:column; gap:12px; }
+  .fab{
+    width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-size:22px; box-shadow:0 8px 24px rgba(0,0,0,0.4);
+  }
+  .fab-wa{ background:#25D366; color:#fff; }
+  .fab-search{ background:var(--ink-2); border:1px solid var(--line); color:var(--ivory); }
+
+  /* Sticky mobile buy bar */
+  .sticky-buy{
+    position:fixed; bottom:64px; right:0; left:0; z-index:44;
+    background:rgba(18,24,21,0.94); backdrop-filter:blur(10px); border-top:1px solid var(--line);
+    padding:10px 14px; display:flex; align-items:center; gap:12px;
+    transform:translateY(120%); transition:transform .35s ease;
+  }
+  .sticky-buy.show{ transform:translateY(0); }
+  .sticky-buy .thumb{ width:40px; height:40px; border-radius:8px; background:linear-gradient(160deg,var(--pitch),var(--ink)); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-family:'Oswald'; font-size:15px;}
+  .sticky-buy .info{ flex:1; min-width:0; }
+  .sticky-buy .info b{ font-size:12.5px; display:block; }
+  .sticky-buy .info span{ font-size:12px; color:var(--gold-bright); font-family:'Oswald'; }
+  .sticky-buy button{ background:var(--gold); color:var(--ink); font-weight:800; padding:11px 20px; border-radius:8px; font-size:13px; white-space:nowrap; }
+
+  /* Bottom nav (mobile) */
+  .bottom-nav{
+    position:fixed; bottom:0; right:0; left:0; z-index:46; height:64px;
+    background:rgba(11,15,13,0.97); backdrop-filter:blur(10px); border-top:1px solid var(--line);
+    display:flex;
+  }
+  .bn-item{
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+    color:var(--ivory-dim); font-size:10.5px; font-weight:600; position:relative;
+  }
+  .bn-item.active{ color:var(--gold-bright); }
+  .bn-item .ic{ font-size:19px; }
+  .bn-item .bn-badge{
+    position:absolute; top:2px; left:calc(50% + 6px); background:var(--red); color:#fff;
+    font-size:9px; min-width:14px; height:14px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  }
+
+  @media (min-width:860px){
+    .desktop-nav{ display:flex; }
+    .p-grid{ grid-template-columns:repeat(5,1fr); }
+    .bottom-nav{ display:none; }
+    .sticky-buy{ display:none; }
+    .fab-col{ bottom:24px; }
+    body{ padding-bottom:0; }
+    .foot-grid{ grid-template-columns:2fr 1fr 1fr 1fr; }
+    .hero{ padding:90px 18px 64px; }
+    .hero p{ max-width:520px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+
+</style>
+<style>
+  /* Page-specific tweaks for the homepage can go here */
+</style>
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,"script",
+  "https://connect.facebook.net/en_US/fbevents.js");
+  fbq("init", "YOUR_PIXEL_ID_HERE"); // 👈 حط رقم الـ Pixel ID بتاعك هنا
+  fbq("track", "PageView");
+</script>
+</head>
+<body>
+
+<div class="announce" id="announce">
+  🚚 شحن مجاني لو اشتريت 3 تيشيرتات أو أكتر · الدفع عند الاستلام متاح
+  <button class="close" onclick="document.getElementById('announce').style.display='none'">✕</button>
+</div>
+
+<header id="siteHeader">
+  <div class="header-inner">
+    <div class="logo"><span class="dot">🐊</span> تمساح</div>
+    <ul class="desktop-nav">
+      <li>كل التيشيرتات</li>
+      <li>الأكثر مبيعاً</li>
+      <li>العروض</li>
+      <li>تواصل معنا</li>
+    </ul>
+    <div class="header-icons">
+      <button class="icon-btn">🔍</button>
+      <button class="icon-btn">♡<span class="badge">3</span></button>
+      <a href="cart.html" class="icon-btn">🛒<span class="badge">2</span></a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="ghost-num">10</div>
+  <div class="hero-content">
+    <span class="eyebrow">مجموعة ٢٠٢٦</span>
+    <h1>تيشيرتات <span>تمساح</span><br>خامة تفرق</h1>
+    <p>تيشيرتات بريميوم بخامة قطن فاخرة وطباعة عالية الجودة، وتوصيل لأي مكان في مصر خلال ٢٤ ساعة.</p>
+    <div class="cta-row">
+      <a href="#collection" class="btn btn-primary">تسوق الآن ←</a>
+      <a href="#" class="btn btn-ghost">اعرف مقاسك</a>
+    </div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="trust-item"><span class="ic">🔒</span><div class="tx"><b>دفع آمن 100%</b><span>SSL معتمد</span></div></div>
+  <div class="trust-item"><span class="ic">💵</span><div class="tx"><b>الدفع عند الاستلام</b><span>في كل المحافظات</span></div></div>
+  <div class="trust-item"><span class="ic">↩️</span><div class="tx"><b>استرجاع سهل</b><span>خلال ١٤ يوم</span></div></div>
+  <div class="trust-item"><span class="ic">🚚</span><div class="tx"><b>توصيل سريع</b><span>1-3 أيام عمل</span></div></div>
+</div>
+
+<section class="block" id="collection">
+  <div class="block-head">
+    <div><span class="eyebrow-sm">وصل حديثاً</span><h2>مجموعة الموسم</h2></div>
+    <a href="#" class="see-all">عرض الكل ←</a>
+  </div>
+  <div class="p-grid" id="catalog">
+
+    <div class="card">
+      <div class="jersey"><span class="tag">خصم 20%</span><span class="wish">♡</span><span class="jnum">T</span></div>
+      <div class="info">
+        <div class="club">الأساسي</div>
+        <div class="name">تيشيرت تمساح — أسود</div>
+        <div class="price-row"><span class="price">399 ج.م</span><span class="price-old">499</span></div>
+        <a href="product.html" class="qbuy">🛒 شراء سريع</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="jersey"><span class="wish">♡</span><span class="jnum">T</span></div>
+      <div class="info">
+        <div class="club">الأساسي</div>
+        <div class="name">تيشيرت تمساح — أبيض</div>
+        <div class="price-row"><span class="price">399 ج.م</span></div>
+        <a href="product.html" class="qbuy">🛒 شراء سريع</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="jersey"><span class="tag">جديد</span><span class="wish">♡</span><span class="jnum">T</span></div>
+      <div class="info">
+        <div class="club">إصدار محدود</div>
+        <div class="name">تيشيرت تمساح — طبعة ذهبية</div>
+        <div class="price-row"><span class="price">499 ج.م</span></div>
+        <a href="product.html" class="qbuy">🛒 شراء سريع</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="jersey"><span class="wish">♡</span><span class="jnum">T</span></div>
+      <div class="info">
+        <div class="club">الأساسي</div>
+        <div class="name">تيشيرت تمساح — أخضر غامق</div>
+        <div class="price-row"><span class="price">399 ج.م</span></div>
+        <a href="product.html" class="qbuy">🛒 شراء سريع</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="jersey"><span class="wish">♡</span><span class="jnum">T</span></div>
+      <div class="info">
+        <div class="club">أوفرسايز</div>
+        <div class="name">تيشيرت تمساح — كحلي</div>
+        <div class="price-row"><span class="price">429 ج.م</span></div>
+        <a href="product.html" class="qbuy">🛒 شراء سريع</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="block">
+  <div class="block-head">
+    <div><span class="eyebrow-sm">Recently viewed</span><h2>شفتها قبل كده</h2></div>
+  </div>
+  <div class="p-scroll">
+    <div class="card"><div class="jersey"><span class="jnum">T</span></div><div class="info"><div class="club">الأساسي</div><div class="name">تيشيرت تمساح — أبيض</div><div class="price-row"><span class="price">399 ج.م</span></div></div></div>
+    <div class="card"><div class="jersey"><span class="jnum">T</span></div><div class="info"><div class="club">إصدار محدود</div><div class="name">تيشيرت تمساح — طبعة ذهبية</div><div class="price-row"><span class="price">499 ج.م</span></div></div></div>
+    <div class="card"><div class="jersey"><span class="jnum">T</span></div><div class="info"><div class="club">أوفرسايز</div><div class="name">تيشيرت تمساح — كحلي</div><div class="price-row"><span class="price">429 ج.م</span></div></div></div>
+  </div>
+</section>
+
+<div class="pay-strip">
+  <span class="pay-chip">فيزا / ماستركارد</span>
+  <span class="pay-chip">فوري</span>
+  <span class="pay-chip">فودافون كاش</span>
+  <span class="pay-chip">الدفع عند الاستلام</span>
+  <span class="pay-chip">🔒 SSL آمن</span>
+</div>
+
+<div class="news">
+  <h3>اشترك معانا</h3>
+  <p>هيوصلك كل الجديد والعروض الحصرية أول بأول</p>
+  <form onsubmit="event.preventDefault(); this.querySelector('button').textContent='تم ✓';">
+    <input type="email" placeholder="بريدك الإلكتروني" required>
+    <button type="submit">اشترك</button>
+  </form>
+</div>
+
+<footer>
+  <div class="foot-grid">
+    <div class="foot-col">
+      <h5>تمساح</h5>
+      <li style="max-width:260px; line-height:1.9;">تيشيرتات بريميوم بخامة تفرق — جودة عالية وثقة كاملة، صناعة مصرية.</li>
+      <div class="switchers">
+        <span class="switch-chip">🌐 عربي</span>
+        <span class="switch-chip">💵 EGP</span>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h5>خدمة العملاء</h5>
+      <li>تتبع الطلب</li><li>سياسة الاسترجاع</li><li>الأسئلة الشائعة</li><li>تواصل معنا</li>
+    </div>
+    <div class="foot-col">
+      <h5>الشركة</h5>
+      <li>من نحن</li><li>المدونة</li><li>برنامج الإحالة</li><li>الوظائف</li>
+    </div>
+    <div class="foot-col">
+      <h5>قانوني</h5>
+      <li>سياسة الخصوصية</li><li>الشروط والأحكام</li><li>سياسة الكوكيز</li>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 تمساح. جميع الحقوق محفوظة.</span>
+    <span>صناعة مصرية بفخر 🇪🇬</span>
+  </div>
+</footer>
+
+<div class="fab-col">
+  <a href="#" class="fab fab-search">🔍</a>
+  <a href="#" class="fab fab-wa">💬</a>
+</div>
+
+<div class="sticky-buy" id="stickyBuy">
+  <div class="thumb">T</div>
+  <div class="info"><b>تيشيرت تمساح — أسود</b><span>399 ج.م</span></div>
+  <a href="cart.html" style="background:var(--gold); color:var(--ink); font-weight:800; padding:11px 20px; border-radius:8px; font-size:13px; white-space:nowrap;">أضف للسلة</a>
+</div>
+
+<nav class="bottom-nav">
+  <a class="bn-item active"><span class="ic">🏠</span>الرئيسية</a>
+  <a class="bn-item"><span class="ic">🔍</span>بحث</a>
+  <a class="bn-item"><span class="ic">♡</span>المفضلة<span class="bn-badge">3</span></a>
+  <a class="bn-item" href="cart.html"><span class="ic">🛒</span>السلة<span class="bn-badge">2</span></a>
+  <a class="bn-item"><span class="ic">👤</span>حسابي</a>
+</nav>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  const stickyBuy = document.getElementById('stickyBuy');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 8);
+    stickyBuy.classList.toggle('show', window.scrollY > 520);
+  });
+</script>
+
+</body>
+</html>
