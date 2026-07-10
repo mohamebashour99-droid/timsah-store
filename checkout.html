@@ -329,18 +329,6 @@
     .co-wrap > .co-summary{ position:sticky; top:90px; }
   }
 </style>
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,"script",
-  "https://connect.facebook.net/en_US/fbevents.js");
-  fbq("init", "YOUR_PIXEL_ID_HERE"); // 👈 حط رقم الـ Pixel ID بتاعك هنا
-  fbq("track", "PageView");
-</script>
 </head>
 <body>
 
@@ -373,17 +361,17 @@
     <div class="co-card">
       <h3><span class="n">1</span> بيانات التواصل والشحن</h3>
       <div class="frow">
-        <div><label>الاسم بالكامل</label><input type="text" placeholder="مثال: أحمد محمد"></div>
-        <div><label>رقم الموبايل</label><input type="tel" placeholder="01xxxxxxxxx"></div>
+        <div><label>الاسم بالكامل</label><input type="text" id="f_name" placeholder="مثال: أحمد محمد" required></div>
+        <div><label>رقم الموبايل</label><input type="tel" id="f_phone" placeholder="01xxxxxxxxx" required></div>
       </div>
       <div class="frow full">
-        <div><label>العنوان بالتفصيل</label><input type="text" placeholder="الشارع، رقم العمارة، الدور"></div>
+        <div><label>العنوان بالتفصيل</label><input type="text" id="f_address" placeholder="الشارع، رقم العمارة، الدور" required></div>
       </div>
       <div class="frow">
         <div><label>المحافظة</label>
-          <select><option>القاهرة</option><option>الجيزة</option><option>الإسكندرية</option><option>محافظة أخرى</option></select>
+          <select id="f_gov"><option>القاهرة</option><option>الجيزة</option><option>الإسكندرية</option><option>محافظة أخرى</option></select>
         </div>
-        <div><label>المدينة / المنطقة</label><input type="text" placeholder="مثال: مدينة نصر"></div>
+        <div><label>المدينة / المنطقة</label><input type="text" id="f_city" placeholder="مثال: مدينة نصر" required></div>
       </div>
     </div>
 
@@ -391,15 +379,15 @@
       <h3><span class="n">2</span> طريقة الدفع</h3>
       <div class="pay-options">
         <label class="pay-opt selected">
-          <input type="radio" name="pay" checked>
+          <input type="radio" name="pay" value="الدفع عند الاستلام" checked>
           <div class="txt"><b>الدفع عند الاستلام</b><span>ادفع كاش لما الطلب يوصلك</span></div>
         </label>
         <label class="pay-opt">
-          <input type="radio" name="pay">
+          <input type="radio" name="pay" value="فيزا / ماستركارد">
           <div class="txt"><b>فيزا / ماستركارد</b><span>دفع آمن مشفّر SSL</span></div>
         </label>
         <label class="pay-opt">
-          <input type="radio" name="pay">
+          <input type="radio" name="pay" value="فودافون كاش">
           <div class="txt"><b>فودافون كاش</b><span>حوّل وأكّد رقم العملية</span></div>
         </label>
       </div>
@@ -413,7 +401,7 @@
     <div class="sum-row"><span>المجموع الفرعي</span><span>898 ج.م</span></div>
     <div class="sum-row"><span>الشحن</span><span>60 ج.م</span></div>
     <div class="sum-row total"><span>الإجمالي</span><span class="num-val">958 ج.م</span></div>
-    <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:16px;" onclick="window.location.href='thank-you.html'">تأكيد الطلب ←</button>
+    <button type="button" id="confirmBtn" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:16px;">📱 تأكيد الطلب عبر واتساب ←</button>
     <div style="font-size:11px; color:var(--ivory-dim); text-align:center; margin-top:10px;">🔒 بياناتك محمية ومشفّرة بالكامل</div>
   </div>
 </div>
@@ -470,6 +458,40 @@
   });
   window.addEventListener('scroll', () => {
     document.getElementById('siteHeader').classList.toggle('scrolled', window.scrollY > 8);
+  });
+
+  const STORE_WHATSAPP = "201066850953"; // رقم واتساب المتجر
+
+  document.getElementById('confirmBtn').addEventListener('click', () => {
+    const name = document.getElementById('f_name').value.trim();
+    const phone = document.getElementById('f_phone').value.trim();
+    const address = document.getElementById('f_address').value.trim();
+    const gov = document.getElementById('f_gov').value;
+    const city = document.getElementById('f_city').value.trim();
+    const payment = document.querySelector('input[name="pay"]:checked').value;
+
+    if(!name || !phone || !address || !city){
+      alert('من فضلك املأ كل بيانات الشحن قبل تأكيد الطلب');
+      return;
+    }
+
+    const message =
+`🛍️ طلب جديد من متجر تمساح
+
+👤 الاسم: ${name}
+📱 الموبايل: ${phone}
+📍 العنوان: ${address}، ${city}، ${gov}
+💳 طريقة الدفع: ${payment}
+
+🧾 المنتجات:
+- تيشيرت تمساح — أسود × 1 (399 ج.م)
+- تيشيرت تمساح — طبعة ذهبية × 1 (499 ج.م)
+شحن: 60 ج.م
+الإجمالي: 958 ج.م`;
+
+    const url = `https://wa.me/${STORE_WHATSAPP}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+    window.location.href = 'thank-you.html';
   });
 </script>
 
